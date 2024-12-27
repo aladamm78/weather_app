@@ -7,25 +7,39 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Weather App</h1>
-    <label for="city">City:</label>
-    <input 
-        type="text" 
-        id="city" 
-        placeholder="Enter city name" 
-        autocomplete="off" 
-        aria-label="City Name" 
-        autofocus
-    >
-    <div id="loading"></div>
-    <ul id="suggestions" style="list-style-type: none; padding: 0; margin: 0; display: none;" role="listbox"></ul>
-    <button id="getWeather">Get Weather</button>
-    <label for="unitToggle">Units:</label>
-    <select id="unitToggle">
-        <option value="imperial">Fahrenheit</option>
-        <option value="metric">Celsius</option>
-    </select>
-    <div id="weather"></div>
+    <div class="app-container">
+        <div class="search-bar">
+            <input 
+                type="text" 
+                id="city" 
+                placeholder="Enter city name" 
+                autocomplete="off" 
+                aria-label="City Name" 
+                autofocus
+            >
+            <select id="unitToggle">
+                <option value="imperial">Fahrenheit</option>
+                <option value="metric">Celsius</option>
+            </select>
+            <button id="getWeather">Get Weather</button>
+            <ul id="suggestions" role="listbox"></ul>
+        </div>
+        <div id="loading"></div>
+            <div id="greeting" class="greeting">
+                <h3>Welcome to the Weather App</h3>
+                <p>Search for a location to get started.</p>
+                <h4>Example Weather:</h4>
+                <div id="exampleWeather"></div>
+            </div>
+        <div class="weather-display">
+            <h2 id="location">Location</h2>
+            <div class="weather-image">
+                <img id="weatherIcon" src="" alt="Weather Icon" />
+            </div>
+            <div id="weatherDescription">Weather description</div>
+            <div id="weather"></div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
