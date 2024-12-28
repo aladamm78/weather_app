@@ -249,8 +249,12 @@ function displayWeather(data, unit, state, locationName) {
         <p>Wind Speed: ${data.wind.speed} ${unit === 'imperial' ? 'mph' : 'm/s'}</p>
         <p>Pressure: ${data.main.pressure} hPa</p>
     `;
+
+    // Show the weather display section
+    document.querySelector('.weather-display').classList.remove('hidden');
     document.getElementById('greeting').style.display = 'none';
 }
+
 
 // Fetch example weather
 function fetchExampleWeather() {

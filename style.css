@@ -1,28 +1,32 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 20px 0; /* Increased padding for better spacing on larger screens */
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Use min-height for better flexibility */
+    align-items: center; 
+    min-height: 100vh;
     background: linear-gradient(135deg, #a8e6ff, #f0f8ff);
-    overflow: hidden; /* Prevent unnecessary scrolling */
+    box-sizing: border-box; 
+    overflow-y: auto; 
 }
 
 .app-container {
-    width: 90%;
-    max-width: 450px;
+    width: 80%; /* Reduced width for a more balanced layout */
+    max-width: 1100px; /* Adjusted for large screens */
     background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    border-radius: 15px; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow for emphasis */
+    padding: 40px; /* Increased padding for spacious feel */
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    overflow: hidden;
+    gap: 30px; /* Larger gap for better separation */
 }
+
+
+
+
 
 .search-bar {
     display: flex;
@@ -117,21 +121,21 @@ body {
 }
 
 .weather-display h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 26px; /* Larger, bolder heading for emphasis */
+    margin-bottom: 20px;
     color: #007bff;
-    word-wrap: break-word; /* Prevent long names from overflowing */
 }
 
 .weather-image img {
-    width: 80px;
-    height: 80px;
+    width: 120px; /* Larger images for clarity */
+    height: 120px;
+    margin-bottom: 20px; /* Add space below the image */
 }
 
 #weatherDescription {
-    font-size: 14px;
+    font-size: 18px; /* Slightly larger font for readability */
     color: #555;
-    margin-bottom: 20px;
+    margin-bottom: 25px; 
 }
 
 .error-message {
@@ -161,39 +165,84 @@ body {
     color: #555;
 }
 
+#exampleWeather {
+    display: flex;
+    justify-content: space-around; /* Space between cards */
+    flex-wrap: wrap; /* Wrap to the next row if needed */
+    gap: 20px; /* Add some spacing between cards */
+    margin-top: 20px;
+}
+
+/* Individual weather card */
 .example-weather-item {
-    flex: 1 1 45%;
-    margin: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(25% - 20px); /* Each card takes about 25% of the row, with spacing */
+    max-width: 25%; /* Ensures consistent card size */
+    padding: 20px; /* Add padding for better spacing */
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.3s, background-color 0.2s;
+}
+
+.example-weather-item:hover {
+    transform: translateY(-5px); /* Slight hover lift */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    background-color: #f9f9f9; /* Light background change on hover */
+}
+
+.example-weather-item h5 {
+    font-size: 18px; /* Adjust heading font size */
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #007bff; /* Consistent blue color */
 }
 
 .example-weather-item img {
-    width: 40px;
-    height: 40px;
-    margin: 5px auto;
+    width: 60px; /* Moderate image size */
+    height: 60px;
+    margin-bottom: 10px;
 }
 
-/* Mobile-Friendly Adjustments */
+.example-weather-item p {
+    font-size: 14px; /* Adjusted for better readability */
+    margin: 5px 0;
+    color: #555; /* Softer text color */
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
     .app-container {
-        max-width: 100%;
+        max-width: 95%;
+        padding: 20px;
+    }
+
+    .search-bar input,
+    .search-bar select,
+    .search-bar button {
+        font-size: 14px;
         padding: 10px;
     }
 
-    #suggestions {
-        font-size: 12px;
+    .weather-image img {
+        width: 80px;
+        height: 80px;
     }
 
     .example-weather-item {
-        flex: 1 1 100%; /* Full width for mobile devices */
+        flex: 1 1 100%; /* Stack the cards vertically on small screens */
+        max-width: 100%;
     }
-
-    .weather-image img {
-        width: 60px;
-        height: 60px;
+    
+    #exampleWeather {
+        flex-direction: column; /* Force a single column layout */
+        align-items: center; /* Center align the cards */
     }
 }
+
