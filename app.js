@@ -19,11 +19,16 @@ let selectedLat = null; // Store selected latitude
 let selectedLon = null; // Store selected longitude
 let selectedState = ''; // Store selected state
 
-// Toggle loading indicator
+// Toggle loading indicator with smooth transitions
 function toggleLoading(show) {
     const loadingDiv = document.getElementById('loading');
-    loadingDiv.style.display = show ? 'block' : 'none';
-    loadingDiv.textContent = show ? 'Fetching data...' : '';
+    if (show) {
+        loadingDiv.classList.add('show');
+        loadingDiv.textContent = 'Fetching data...';
+    } else {
+        loadingDiv.classList.remove('show');
+        loadingDiv.textContent = '';
+    }
 }
 
 // Event listener for "Get Weather" button
@@ -42,13 +47,25 @@ document.getElementById('getWeather').addEventListener('click', () => {
 
 // Event listener for input suggestions
 document.getElementById('city').addEventListener('input', function () {
-    const input = this.value;
+    const input = this.value.trim();
     if (input) {
-        fetchSuggestions(input);
+        fetchSuggestions(input); // Fetch suggestions immediately
     } else {
-        document.getElementById('suggestions').style.display = 'none';
+        document.getElementById('suggestions').style.display = 'none'; // Hide suggestions
+        toggleLoading(false); // Hide "Fetching data"
     }
 });
+
+// Event listener for unit toggle
+unitToggle.addEventListener('change', () => {
+    if (selectedLat && selectedLon) {
+        const unit = unitToggle.value; // 'imperial' or 'metric'
+        const fullName = document.getElementById('location').textContent.replace("Weather in ", "");
+        getWeatherByCoordinates(selectedLat, selectedLon, unit, fullName);
+    }
+});
+
+
 
 // Handle keyboard navigation and Enter key press
 document.getElementById('city').addEventListener('keydown', function (event) {
@@ -91,22 +108,24 @@ function setActive(items) {
 // Fetch city suggestions
 function fetchSuggestions(input) {
     if (cache[input]) {
-        displaySuggestions(cache[input]);
+        displaySuggestions(cache[input]); // Use cached data immediately
         return;
     }
 
-    toggleLoading(true);
+    const loadingTimer = setTimeout(() => toggleLoading(true), 2000); // Show "Fetching data" after 2 seconds
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(input)}&limit=10&appid=${apiKey}`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            toggleLoading(false);
-            cache[input] = data;
-            displaySuggestions(data);
+            clearTimeout(loadingTimer); // Cancel the "Fetching data" timer
+            toggleLoading(false); // Hide "Fetching data" indicator
+            cache[input] = data; // Cache the results
+            displaySuggestions(data); // Display the fetched suggestions
         })
         .catch(error => {
-            toggleLoading(false);
+            clearTimeout(loadingTimer); // Cancel the "Fetching data" timer
+            toggleLoading(false); // Hide "Fetching data" indicator
             console.error('Error fetching suggestions:', error);
         });
 }
@@ -135,9 +154,6 @@ function getWeatherByCoordinates(lat, lon, unit, locationName) {
             `;
         });
 }
-
-
-
 
 // Fetch coordinates and weather by city name
 function fetchCoordinatesAndWeather(city, unit) {
@@ -176,10 +192,6 @@ function fetchCoordinatesAndWeather(city, unit) {
         });
 }
 
-
-
-
-
 // Display suggestions
 function displaySuggestions(suggestions) {
     const suggestionsDiv = document.getElementById('suggestions');
@@ -214,11 +226,6 @@ function displaySuggestions(suggestions) {
     }
 }
 
-
-
-
-
-
 // Display weather data
 function displayWeather(data, unit, state, locationName) {
     const weatherDiv = document.getElementById('weather');
@@ -244,12 +251,6 @@ function displayWeather(data, unit, state, locationName) {
     `;
     document.getElementById('greeting').style.display = 'none';
 }
-
-
-
-
-
-
 
 // Fetch example weather
 function fetchExampleWeather() {

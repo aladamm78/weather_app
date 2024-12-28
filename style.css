@@ -5,17 +5,23 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* Use min-height for better flexibility */
     background: linear-gradient(135deg, #a8e6ff, #f0f8ff);
+    overflow: hidden; /* Prevent unnecessary scrolling */
 }
 
 .app-container {
-    width: 450px;
+    width: 90%;
+    max-width: 450px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    padding: 25px;
+    padding: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: hidden;
 }
 
 .search-bar {
@@ -65,7 +71,14 @@ body {
     color: #007bff;
     margin-bottom: 10px;
     font-weight: bold;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Smooth transition for appearance */
 }
+
+#loading.show {
+    opacity: 1; /* Show the loading indicator */
+}
+
 
 #suggestions {
     list-style-type: none;
@@ -100,28 +113,23 @@ body {
 }
 
 .weather-display {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .weather-display h2 {
-    font-size: 26px;
+    font-size: 18px;
     margin-bottom: 10px;
     color: #007bff;
-}
-
-.weather-image {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
+    word-wrap: break-word; /* Prevent long names from overflowing */
 }
 
 .weather-image img {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
 }
 
 #weatherDescription {
-    font-size: 18px;
+    font-size: 14px;
     color: #555;
     margin-bottom: 20px;
 }
@@ -154,24 +162,38 @@ body {
 }
 
 .example-weather-item {
-    text-align: center;
+    flex: 1 1 45%;
     margin: 10px;
-    padding: 10px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.example-weather-item h5 {
-    font-size: 16px;
-    margin: 5px 0;
-    color: #333;
+.example-weather-item img {
+    width: 40px;
+    height: 40px;
+    margin: 5px auto;
 }
 
-.example-weather-item img {
-    width: 50px;
-    height: 50px;
-    display: block;
-    margin: 0 auto;
+/* Mobile-Friendly Adjustments */
+@media (max-width: 768px) {
+    .app-container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    #suggestions {
+        font-size: 12px;
+    }
+
+    .example-weather-item {
+        flex: 1 1 100%; /* Full width for mobile devices */
+    }
+
+    .weather-image img {
+        width: 60px;
+        height: 60px;
+    }
 }
