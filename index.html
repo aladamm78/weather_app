@@ -8,6 +8,13 @@
 </head>
 <body>
     <div class="app-container">
+        <!-- Greeting Section -->
+        <div id="greeting" class="greeting">
+            <h3>Welcome to the Weather App</h3>
+            <p>Search for a location to get started.</p>
+        </div>
+
+        <!-- Search Bar Section -->
         <div class="search-bar">
             <input 
                 type="text" 
@@ -24,22 +31,40 @@
             <button id="getWeather">Get Weather</button>
             <ul id="suggestions" role="listbox"></ul>
         </div>
+
+        <!-- Example Weather Section -->
+        <h4>Example Weather:</h4>
+        <div id="exampleWeather">
+            <div class="example-weather-item">
+                <h5>Bangkok, TH</h5>
+                <img src="weather-icon-url" alt="few clouds">
+                <p>few clouds</p>
+                <p>Temp: 79.07°F</p>
+            </div>
+            <div class="example-weather-item">
+                <h5>Moscow, RU</h5>
+                <img src="weather-icon-url" alt="overcast clouds">
+                <p>overcast clouds</p>
+                <p>Temp: 34.2°F</p>
+            </div>
+            <div class="example-weather-item">
+                <h5>Paris, FR</h5>
+                <img src="weather-icon-url" alt="mist">
+                <p>mist</p>
+                <p>Temp: 33.94°F</p>
+            </div>
+        </div>
+
+        <!-- Loading and Weather Display -->
         <div id="loading"></div>
-            <div id="greeting" class="greeting">
-                <h3>Welcome to the Weather App</h3>
-                <p>Search for a location to get started.</p>
-                <h4>Example Weather:</h4>
-                <div id="exampleWeather"></div>
+        <div class="weather-display hidden">
+            <h2 id="location">Location</h2>
+            <div class="weather-image">
+                <img id="weatherIcon" src="" alt="Weather Icon" />
             </div>
-            <div class="weather-display hidden">
-                <h2 id="location">Location</h2>
-                <div class="weather-image">
-                    <img id="weatherIcon" src="" alt="Weather Icon" />
-                </div>
-                <div id="weatherDescription">Weather description</div>
-                <div id="weather"></div>
-            </div>
-            
+            <div id="weatherDescription">Weather description</div>
+            <div id="weather"></div>
+        </div>
     </div>
 
     <script src="app.js"></script>

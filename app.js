@@ -253,7 +253,10 @@ function displayWeather(data, unit, state, locationName) {
     // Show the weather display section
     document.querySelector('.weather-display').classList.remove('hidden');
     document.getElementById('greeting').style.display = 'none';
+    document.getElementById('exampleWeather').style.display = 'none'; // Hide example weather
+    document.querySelector('h4').style.display = 'none';
 }
+
 
 
 // Fetch example weather
