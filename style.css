@@ -278,33 +278,40 @@ h4 {
 }
 
 
-/* Responsive Adjustments */
-@media (max-width: 450px) {
+/* Responsive Adjustments for Small Devices (Z Fold Cover Size and Similar) */
+@media (max-width: 600px) {
     .app-container {
-        max-width: 95%;
-        padding: 20px;
+        max-width: 90%; /* Slight padding from the edges */
+        padding: 15px;
     }
 
     .search-bar input,
     .search-bar select,
     .search-bar button {
-        font-size: 14px;
-        padding: 10px;
+        font-size: 16px; /* Keep input legible without being too large */
+        padding: 8px;
     }
 
     .weather-image img {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
     }
 
     .example-weather-item {
-        flex: 1 1 100%; /* Stack the cards vertically on small screens */
+        flex: 1 1 100%;
         max-width: 100%;
+        margin-bottom: 10px;
     }
     
     #exampleWeather {
-        flex-direction: column; /* Force a single column layout */
-        align-items: center; /* Center align the cards */
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1, h2 {
+        font-size: 20px; /* Prevent titles from overflowing */
+        text-align: center;
     }
 }
+
 
