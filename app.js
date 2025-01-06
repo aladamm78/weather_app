@@ -113,7 +113,7 @@ function fetchSuggestions(input) {
     }
 
     const loadingTimer = setTimeout(() => toggleLoading(true), 2000); // Show "Fetching data" after 2 seconds
-    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(input)}&limit=10&appid=${apiKey}`;
+    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(input)}&limit=10&appid=${apiKey}`;
 
     fetch(url)
         .then(response => response.json())
@@ -157,7 +157,7 @@ function getWeatherByCoordinates(lat, lon, unit, locationName) {
 
 // Fetch coordinates and weather by city name
 function fetchCoordinatesAndWeather(city, unit) {
-    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=10&appid=${apiKey}`;
+    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=10&appid=${apiKey}`;
     console.log(`Fetching coordinates for: ${city}`);
 
     toggleLoading(true);
@@ -236,7 +236,7 @@ function displayWeather(data, unit, state, locationName) {
     // Display the passed location name
     locationHeader.textContent = `Weather in ${locationName}`;
     if (data.weather && data.weather[0]) {
-        weatherIcon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
+        weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
         weatherIcon.alt = data.weather[0].description;
         weatherIcon.style.display = 'block';
     } else {
