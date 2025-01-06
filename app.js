@@ -18,6 +18,7 @@ let currentFocus = -1; // Track the currently focused suggestion
 let selectedLat = null; // Store selected latitude
 let selectedLon = null; // Store selected longitude
 let selectedState = ''; // Store selected state
+let lastFullName = ''; // Store the last known location name
 
 // Toggle loading indicator with smooth transitions
 function toggleLoading(show) {
@@ -34,14 +35,10 @@ function toggleLoading(show) {
 // Event listener for "Get Weather" button
 document.getElementById('getWeather').addEventListener('click', () => {
     if (selectedLat && selectedLon) {
-        getWeatherByCoordinates(selectedLat, selectedLon, unitToggle.value);
+        // Use selected coordinates and the last known location name
+        getWeatherByCoordinates(selectedLat, selectedLon, unitToggle.value, lastFullName);
     } else {
-        const city = document.getElementById('city').value.trim();
-        if (city) {
-            fetchCoordinatesAndWeather(city, unitToggle.value);
-        } else {
-            alert('Please enter a city name');
-        }
+        alert('Please enter or select a city name');
     }
 });
 
@@ -131,7 +128,11 @@ function fetchSuggestions(input) {
 }
 
 // Fetch weather data using coordinates
-function getWeatherByCoordinates(lat, lon, unit, locationName) {
+function getWeatherByCoordinates(lat, lon, unit, locationName = '') {
+    // Use the stored name if none is passed
+    if (!locationName) locationName = lastFullName || 'Unknown location';
+    lastFullName = locationName; // Update the last known location
+
     toggleLoading(true);
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
     console.log(`Fetching weather for lat: ${lat}, lon: ${lon}, unit: ${unit}`);
@@ -143,8 +144,8 @@ function getWeatherByCoordinates(lat, lon, unit, locationName) {
             return response.json();
         })
         .then(data => {
-            document.getElementById('weatherDescription').innerHTML = ''; // Clear error messages
-            displayWeather(data, unit, selectedState, locationName); // Pass locationName
+            document.getElementById('weatherDescription').innerHTML = ''; // Clear any previous error messages
+            displayWeather(data, unit, selectedState, locationName); // Pass the correct location name
             console.log(`Weather data received for ${locationName}`);
         })
         .catch(error => {
