@@ -236,27 +236,30 @@ function displayWeather(data, unit, state, locationName) {
     // Display the passed location name
     locationHeader.textContent = `Weather in ${locationName}`;
     if (data.weather && data.weather[0]) {
-        weatherIcon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+        weatherIcon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
         weatherIcon.alt = data.weather[0].description;
         weatherIcon.style.display = 'block';
     } else {
         weatherIcon.style.display = 'none';
     }
-    weatherDiv.innerHTML = `
-        <p>Temperature: ${data.main.temp}${temperatureUnit}</p>
-        <p>Weather: ${data.weather[0].description}</p>
-        <p>Humidity: ${data.main.humidity}%</p>
-        <p>Wind Speed: ${data.wind.speed} ${unit === 'imperial' ? 'mph' : 'm/s'}</p>
-        <p>Pressure: ${data.main.pressure} hPa</p>
-    `;
 
-    // Show the weather display section
-    document.querySelector('.weather-display').classList.remove('hidden');
-    document.getElementById('greeting').style.display = 'none';
-    document.getElementById('exampleWeather').style.display = 'none'; // Hide example weather
-    document.querySelector('h4').style.display = 'none';
+// Wrap the weather details in a container div
+weatherDiv.innerHTML = `
+<div class="weather-item">
+    <p><strong>Temperature:</strong> ${data.main.temp}${temperatureUnit}</p>
+    <p><strong>Weather:</strong> ${data.weather[0].description}</p>
+    <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
+    <p><strong>Wind Speed:</strong> ${data.wind.speed} ${unit === 'imperial' ? 'mph' : 'm/s'}</p>
+    <p><strong>Pressure:</strong> ${data.main.pressure} hPa</p>
+</div>
+ `;
+
+ // Show the weather display section
+ document.querySelector('.weather-display').classList.remove('hidden');
+ document.getElementById('greeting').style.display = 'none';
+ document.getElementById('exampleWeather').style.display = 'none'; // Hide example weather
+ document.querySelector('h4').style.display = 'none';
 }
-
 
 
 // Fetch example weather
@@ -289,3 +292,5 @@ function fetchExampleWeather() {
 document.addEventListener('DOMContentLoaded', () => {
     fetchExampleWeather();
 });
+
+
