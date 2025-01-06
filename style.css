@@ -278,18 +278,26 @@ h4 {
 }
 
 
-/* Responsive Adjustments for Small Devices (Z Fold Cover Size and Similar) */
+/* Responsive Adjustments for Small Devices */
 @media (max-width: 600px) {
     .app-container {
-        max-width: 90%; /* Slight padding from the edges */
+        max-width: 90%;
         padding: 15px;
+    }
+
+    .search-bar {
+        display: flex;
+        flex-wrap: wrap; /* Allow wrapping */
+        gap: 10px; /* Add space between stacked elements */
+        justify-content: center; /* Center align the input, select, and button */
     }
 
     .search-bar input,
     .search-bar select,
     .search-bar button {
-        font-size: 16px; /* Keep input legible without being too large */
-        padding: 8px;
+        flex: 1 1 100%; /* Each takes full width when stacked */
+        padding: 10px;
+        font-size: 16px;
     }
 
     .weather-image img {
@@ -309,7 +317,7 @@ h4 {
     }
 
     h1, h2 {
-        font-size: 20px; /* Prevent titles from overflowing */
+        font-size: 20px;
         text-align: center;
     }
 }
